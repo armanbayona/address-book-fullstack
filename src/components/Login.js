@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-const custom_theme = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#00796b',
@@ -30,7 +30,7 @@ const custom_theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.grey[700],
     },
   },
   paper: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -47,14 +47,17 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0),
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 function Login() {
-   const classes = useStyles();
+  const classes = useStyles();
   return (
-    <MuiThemeProvider theme = { custom_theme }>
+    <MuiThemeProvider theme = { theme }>
       <Container component="main" maxWidth="xs">
-          <Paper className={classes.paper} color="primary">
+          <Paper color="primary" className={classes.paper} color="primary">
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
@@ -82,6 +85,8 @@ function Login() {
               id="password"
               autoComplete="current-password"
             />
+
+            
            
             <Button
               type="submit"
@@ -92,7 +97,7 @@ function Login() {
             >
               Sign In
             </Button>
-            <Link to="/register" >
+            <Link to="/register" className={classes.link}>
               <Button
               type="button"
               fullWidth

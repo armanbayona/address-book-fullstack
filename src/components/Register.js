@@ -1,5 +1,6 @@
 import React, { Component }  from 'react';
 
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -12,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-const custom_theme = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#00796b',
@@ -29,7 +30,7 @@ const custom_theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.common.white,
+      backgroundColor: theme.palette.grey[700],
     },
   },
   paper: {
@@ -46,91 +47,245 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0),
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
 function Register() {
-   const classes = useStyles();
+  const classes = useStyles();
   return (
-    <MuiThemeProvider theme = { custom_theme }>
-      <Container component="main" maxWidth="xs">
+    <MuiThemeProvider theme = { theme }>
+      <Container component="main" maxWidth="md">
           <Paper className={classes.paper} color="primary">
             <Typography component="h1" variant="h5">
               Register
             </Typography>
-          
           <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="firstname"
-              label="First Name"
-              name="firstname"
-              autoComplete="firstname"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="lastname"
-              label="Last Name"
-              name="lastname"
-              autoComplete="lastname"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="contact-number"
-              label="Contact Number"
-              name="contact-number"
-              autoComplete="contact-number"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="address"
-              label="Address"
-              name="address"
-              autoComplete="address"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-           
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Register
-            </Button>
+
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="First Name"
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="Last Name"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="Home Phone"
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="Mobile Phone"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="Work Phone"
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="Email"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+            
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="No./Street/Brgy."
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="City"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="Province"
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="Country"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid container md={12}>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstname"
+                    label="Username"
+                    name="firstname"
+                    autoComplete="firstname"
+                    autoFocus
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastname"
+                    label="Password"
+                    name="lastname"
+                    autoComplete="lastname"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+
+            <Grid container xs={12} alignItems="center">
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                  >
+                    Register
+                  </Button>
+                </Box>
+              </Grid>
+              <Grid item md={6} xs={12}>
+                <Box px={1}>
+                  <Link to="/" className={classes.link} >
+                    <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    >
+                      BACK
+                    </Button>
+                  </Link>
+                </Box>
+              </Grid>
+            </Grid>
+            
           </form>
        </Paper>
       </Container>
