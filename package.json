@@ -23,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "migrate": "node-pg-migrate"
+    "migrate": "node-pg-migrate",
+    "easy-migrate": "npm run migrate up -- --no-check-order"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,22 +1,22 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-  pgm.createTable('contacts', {
-    contactId: {
+  pgm.createTable('address-books', {
+    bookId: {
       type: 'serial',
       primaryKey: true,
     },
-    bookId: {
+    userId: {
     	type: 'integer',
-      references: '"address-books"',
+      references: '"users"',
     },
-    profileId: {
-    	type: 'integer',
-      references: '"profiles"',
+    name: {
+      type: 'text',
+      notNull: true,
     },
     dateCreated: { 
     	type: 'timestamp', notNull: true, 
-    	default: new require('node-pg-migrate').PgLiteral('current_timestamp') 
+    	default: pgm.func("current_timestamp"),
     },
   });
 };

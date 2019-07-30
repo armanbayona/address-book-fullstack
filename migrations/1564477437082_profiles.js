@@ -35,7 +35,7 @@ exports.up = pgm => {
       type: 'text',
       notNull: true,
     },
-    state.: {
+    state: {
       type: 'text',
       notNull: true,
     },
@@ -48,8 +48,9 @@ exports.up = pgm => {
       notNull: true,
     },
     dateCreated: { 
-    	type: 'timestamp', notNull: true, 
-    	default: new require('node-pg-migrate').PgLiteral('current_timestamp') 
+    	type: 'timestamp', 
+    	notNull: true, 
+    	default: pgm.func("current_timestamp"), 
     },
   });
 };
