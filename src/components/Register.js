@@ -1,4 +1,4 @@
-import React, { Component }  from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -8,7 +8,6 @@ import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';

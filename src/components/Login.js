@@ -1,16 +1,14 @@
-import React, { Component }  from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
-
+import Avatar from '@material-ui/core/Avatar';
+import Logo from '../img/logo.svg';
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
@@ -50,6 +48,14 @@ const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: 'none',
   },
+  bigAvatar: {
+    padding: 12,
+    marginBottom: 24,
+    width: 60,
+    height: 60,
+    border: '4px solid #00796bc0',
+    backgroundColor: 'white'
+  },
 }));
 
 function Login() {
@@ -57,9 +63,10 @@ function Login() {
   return (
     <MuiThemeProvider theme = { theme }>
       <Container component="main" maxWidth="xs">
-          <Paper color="primary" className={classes.paper} color="primary">
+          <Paper color="primary" className={classes.paper}>
+          <Avatar alt="logo" src={Logo} className={classes.bigAvatar} />
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign in to AddressBook
             </Typography>
           
           <form className={classes.form} noValidate>
@@ -85,8 +92,6 @@ function Login() {
               id="password"
               autoComplete="current-password"
             />
-
-            
            
             <Button
               type="submit"
