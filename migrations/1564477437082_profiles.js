@@ -2,32 +2,32 @@ exports.shorthands = undefined;
 
 exports.up = pgm => {
   pgm.createTable('profiles', {
-    profileId: {
+    profile_id: {
       type: 'serial',
       primaryKey: true,
     },
-    firstName: {
+    first_name: {
       type: 'text',
       notNull: true,
     },
-    lastname: {
+    last_name: {
       type: 'text',
       notNull: true,
     },
-    homePhone: {
+    home_phone: {
       type: 'text',
     },
-    mobilePhone: {
+    mobile_phone: {
       type: 'text',
     },
-    workPhone: {
+    work_phone: {
       type: 'text',
     },
     email: {
       type: 'text',
       notNull: true,
     },
-    addressLine: {
+    address_line: {
       type: 'text',
       notNull: true,
     },
@@ -47,7 +47,7 @@ exports.up = pgm => {
       type: 'integer',
       notNull: true,
     },
-    dateCreated: { 
+    date_created: { 
     	type: 'timestamp', 
     	notNull: true, 
     	default: pgm.func("current_timestamp"), 

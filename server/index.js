@@ -1,7 +1,7 @@
 const express = require('express');
 const massive = require('massive');
 
-// const users = require('./controllers/user.js');
+const users = require('./controllers/users.js');
 
 massive({
   host: 'localhost',
@@ -18,7 +18,7 @@ massive({
   app.use(express.json());
 
   //ROUTING USERS
-  app.post('/api/register', users.register);
+  app.post('/api/sign-up', users.create);
   // app.get('/api/protected/data', users.protected);
   // app.post('/api/login', users.login);
 

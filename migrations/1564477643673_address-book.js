@@ -2,11 +2,11 @@ exports.shorthands = undefined;
 
 exports.up = pgm => {
   pgm.createTable('books', {
-    bookId: {
+    book_id: {
       type: 'serial',
       primaryKey: true,
     },
-    userId: {
+    user_id: {
     	type: 'integer',
       references: '"users"',
     },
@@ -14,7 +14,7 @@ exports.up = pgm => {
       type: 'text',
       notNull: true,
     },
-    dateCreated: { 
+    date_created: { 
     	type: 'timestamp', notNull: true, 
     	default: pgm.func("current_timestamp"),
     },
