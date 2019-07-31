@@ -1,5 +1,6 @@
 const express = require('express');
 const massive = require('massive');
+const cors = require('cors');
 
 const users = require('./controllers/users.js');
 
@@ -16,6 +17,7 @@ massive({
 
 	//MIDDLEWARE
   app.use(express.json());
+  app.use(cors());
 
   //ROUTING USERS
   app.post('/api/sign-up', users.create);

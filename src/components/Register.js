@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState }  from 'react';
+import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
@@ -51,8 +52,44 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Register() {
+
+
+function Register(props) {
   const classes = useStyles();
+
+  const [state, setState] = useState({
+    first_name: '',
+    last_name: '',
+    home_phone: '',
+    mobile_phone: '',
+    work_phone: '',
+    email: '',
+    address_line: '',
+    city: '',
+    state: '',
+    country: '',
+    zip: '1000',
+    username: '',
+    password: '',
+  });
+
+  const handleChange = (e) => setState({...state, [e.target.name]: e.target.value});
+
+  const handleSubmit = (e) => {
+    e.stopPropagation();
+    console.log('submit');
+    axios.post('http://localhost:3001/api/sign-up', {
+      ...state
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    props.history.push('/')
+  }
+
   return (
     <MuiThemeProvider theme = { theme }>
       <Container component="main" maxWidth="md">
@@ -60,19 +97,20 @@ function Register() {
             <Typography component="h1" variant="h5">
               Register
             </Typography>
-          <form className={classes.form} noValidate>
-
-            <Grid container md={12}>
+          <form onSubmit={handleSubmit} className={classes.form}>
+          
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
                     id="firstname"
                     label="First Name"
-                    name="firstname"
+                    name="first_name"
                     autoComplete="firstname"
                     autoFocus
                   />
@@ -81,31 +119,33 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
                     id="lastname"
                     label="Last Name"
-                    name="lastname"
+                    name="last_name"
                     autoComplete="lastname"
                   />
                 </Box>
               </Grid>
             </Grid>
 
-            <Grid container md={12}>
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="firstname"
+                    id="homephone"
                     label="Home Phone"
-                    name="firstname"
-                    autoComplete="firstname"
+                    name="home_phone"
+                    autoComplete="homephone"
                     autoFocus
                   />
                 </Box>
@@ -113,31 +153,33 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="lastname"
+                    id="mobilephone"
                     label="Mobile Phone"
-                    name="lastname"
-                    autoComplete="lastname"
+                    name="mobile_phone"
+                    autoComplete="mobilephone"
                   />
                 </Box>
               </Grid>
             </Grid>
 
-            <Grid container md={12}>
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="firstname"
+                    id="workphone"
                     label="Work Phone"
-                    name="firstname"
-                    autoComplete="firstname"
+                    name="work_phone"
+                    autoComplete="workphone"
                     autoFocus
                   />
                 </Box>
@@ -145,31 +187,33 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="lastname"
+                    id="email"
                     label="Email"
-                    name="lastname"
-                    autoComplete="lastname"
+                    name="email"
+                    autoComplete="email"
                   />
                 </Box>
               </Grid>
             </Grid>
             
-            <Grid container md={12}>
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="firstname"
+                    id="addressline"
                     label="No./Street/Brgy."
-                    name="firstname"
-                    autoComplete="firstname"
+                    name="address_line"
+                    autoComplete="addressline"
                     autoFocus
                   />
                 </Box>
@@ -177,31 +221,33 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="lastname"
+                    id="city"
                     label="City"
-                    name="lastname"
-                    autoComplete="lastname"
+                    name="city"
+                    autoComplete="city"
                   />
                 </Box>
               </Grid>
             </Grid>
 
-            <Grid container md={12}>
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="firstname"
-                    label="Province"
-                    name="firstname"
-                    autoComplete="firstname"
+                    id="state"
+                    label="State/Province"
+                    name="state"
+                    autoComplete="state"
                     autoFocus
                   />
                 </Box>
@@ -209,31 +255,33 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="lastname"
+                    id="country"
                     label="Country"
-                    name="lastname"
-                    autoComplete="lastname"
+                    name="country"
+                    autoComplete="country"
                   />
                 </Box>
               </Grid>
             </Grid>
 
-            <Grid container md={12}>
+            <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="firstname"
+                    id="username"
                     label="Username"
-                    name="firstname"
-                    autoComplete="firstname"
+                    name="username"
+                    autoComplete="username"
                     autoFocus
                   />
                 </Box>
@@ -241,20 +289,22 @@ function Register() {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                    onChange={handleChange}
                     variant="outlined"
                     margin="normal"
+                    type="password"
                     required
                     fullWidth
-                    id="lastname"
+                    id="password"
                     label="Password"
-                    name="lastname"
-                    autoComplete="lastname"
+                    name="password"
+                    autoComplete="password"
                   />
                 </Box>
               </Grid>
             </Grid>
 
-            <Grid container xs={12} alignItems="center">
+            <Grid container alignItems="center">
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <Button

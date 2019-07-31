@@ -5,13 +5,13 @@ const secret = require('../../secret.js')
 function create(req, res) {
   const db = req.app.get('db');
 	const { 
-		firstName,
-		lastName,
-		homePhone,
-		mobilePhone,
-		workPhone,
+		first_name,
+		last_name,
+		home_phone,
+		mobile_phone,
+		work_phone,
 		email,
-		addressLine,
+		address_line,
 		city,
 		state,
 		country,
@@ -20,29 +20,29 @@ function create(req, res) {
 		password,
 	} = req.body;
 	
-	// argon2
-	// 	.hash(password)
-	// 	.then(hash => {
+	argon2
+		.hash(password)
+		.then(hash => {
 		  db.profiles.insert({
-		    firstName,
-				lastName,
-				homePhone,
-				mobilePhone,
-				workPhone,
+		    first_name,
+				last_name,
+				home_phone,
+				mobile_phone,
+				work_phone,
 				email,
-				addressLine,
+				address_line,
 				city,
 				state,
 				country,
 				zip,
 				users: [{
-					profileId: undefined,
+					profile_id: undefined,
 					username,
-					password,
-					//password: hash,
+					//password,
+					password: hash,
 				}],
 			},{ deepInsert: true })
-	//})
+	})
 
 		.then(profile => {
 
