@@ -8,7 +8,7 @@ exports.up = pgm => {
     },
     bookId: {
     	type: 'integer',
-      references: '"address-books"',
+      references: '"books"',
     },
     profileId: {
     	type: 'integer',

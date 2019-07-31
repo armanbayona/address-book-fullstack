@@ -18,7 +18,7 @@ massive({
   app.use(express.json());
 
   //ROUTING USERS
-  // app.post('/api/register', users.register);
+  app.post('/api/register', users.register);
   // app.get('/api/protected/data', users.protected);
   // app.post('/api/login', users.login);
 

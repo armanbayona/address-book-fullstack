@@ -1,7 +1,7 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-  pgm.createTable('address-books', {
+  pgm.createTable('books', {
     bookId: {
       type: 'serial',
       primaryKey: true,
@@ -22,5 +22,5 @@ exports.up = pgm => {
 };
 
 exports.down = (pgm) => {
-
+  
 };
