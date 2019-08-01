@@ -21,8 +21,8 @@ massive({
 
   //ROUTING USERS
   app.post('/api/sign-up', users.create);
-  // app.get('/api/protected/data', users.protected);
-  // app.post('/api/login', users.login);
+  app.get('/api/protected/data', users.protected);
+  app.post('/api/login', users.login);
 
   const PORT = 3001;
   app.listen(PORT, () => {

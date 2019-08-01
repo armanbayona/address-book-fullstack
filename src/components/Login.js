@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState }  from 'react';
+import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import Grow from '@material-ui/core/Grow';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -57,30 +59,59 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Login() {
+function Login(props) {
   const classes = useStyles();
+
+  const [state, setState] = useState({
+    username: '',
+    password: '',
+    error: false,
+  });
+
+  const handleChange = (e) => setState({...state, [e.target.name]: e.target.value, error: false});
+
+  const handleSubmit = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    axios.post('http://localhost:3001/api/login', {
+      ...state
+    })
+    .then(function (response) {
+      //console.log(response);
+      if(response.status === 200){
+        props.history.push('/address-book')
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      setState({...state, error: true});  
+    });
+  }
   return (
     <MuiThemeProvider theme = { theme }>
       <Container component="main" maxWidth="xs">
+          <Grow in={true}>
           <Paper color="primary" className={classes.paper}>
           <Avatar alt="logo" src={Logo} className={classes.bigAvatar} />
             <Typography component="h1" variant="h5">
               Sign in to AddressBook
             </Typography>
-          
-          <form className={classes.form} noValidate>
+
+          <form onSubmit={handleSubmit} className={classes.form}>
             <TextField
+              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
+              onChange={handleChange}
               variant="outlined"
               margin="normal"
               required
@@ -114,6 +145,7 @@ function Login() {
             </Link>
           </form>
        </Paper>
+       </Grow>
       </Container>
       </MuiThemeProvider>
   );

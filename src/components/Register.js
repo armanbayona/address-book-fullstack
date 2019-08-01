@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Grow from '@material-ui/core/Grow';
 
 import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -52,8 +53,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
-
 function Register(props) {
   const classes = useStyles();
 
@@ -68,7 +67,7 @@ function Register(props) {
     city: '',
     state: '',
     country: '',
-    zip: '1000',
+    zip: '',
     username: '',
     password: '',
   });
@@ -76,23 +75,24 @@ function Register(props) {
   const handleChange = (e) => setState({...state, [e.target.name]: e.target.value});
 
   const handleSubmit = (e) => {
-    e.stopPropagation();
+    //e.stopPropagation();
     console.log('submit');
     axios.post('http://localhost:3001/api/sign-up', {
       ...state
     })
     .then(function (response) {
       console.log(response);
+      props.history.push('/')
     })
     .catch(function (error) {
       console.log(error);
     });
-    props.history.push('/')
   }
 
   return (
     <MuiThemeProvider theme = { theme }>
       <Container component="main" maxWidth="md">
+          <Grow in={true}>
           <Paper className={classes.paper} color="primary">
             <Typography component="h1" variant="h5">
               Register
@@ -140,13 +140,11 @@ function Register(props) {
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="homephone"
                     label="Home Phone"
                     name="home_phone"
                     autoComplete="homephone"
-                    autoFocus
                   />
                 </Box>
               </Grid>
@@ -156,7 +154,6 @@ function Register(props) {
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="mobilephone"
                     label="Mobile Phone"
@@ -174,13 +171,11 @@ function Register(props) {
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
-                    required
                     fullWidth
                     id="workphone"
                     label="Work Phone"
                     name="work_phone"
                     autoComplete="workphone"
-                    autoFocus
                   />
                 </Box>
               </Grid>
@@ -188,6 +183,7 @@ function Register(props) {
                 <Box px={1}>
                   <TextField
                     onChange={handleChange}
+                    type="email"
                     variant="outlined"
                     margin="normal"
                     required
@@ -214,7 +210,6 @@ function Register(props) {
                     label="No./Street/Brgy."
                     name="address_line"
                     autoComplete="addressline"
-                    autoFocus
                   />
                 </Box>
               </Grid>
@@ -236,7 +231,7 @@ function Register(props) {
             </Grid>
 
             <Grid container>
-              <Grid item md={6} xs={12}>
+              <Grid item md={4} xs={12}>
                 <Box px={1}>
                   <TextField
                     onChange={handleChange}
@@ -248,11 +243,10 @@ function Register(props) {
                     label="State/Province"
                     name="state"
                     autoComplete="state"
-                    autoFocus
                   />
                 </Box>
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid item md={4} xs={12}>
                 <Box px={1}>
                   <TextField
                     onChange={handleChange}
@@ -264,6 +258,21 @@ function Register(props) {
                     label="Country"
                     name="country"
                     autoComplete="country"
+                  />
+                </Box>
+              </Grid>
+              <Grid item md={4} xs={12}>
+                <Box px={1}>
+                  <TextField
+                    onChange={handleChange}
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="zip"
+                    label="Zip Code"
+                    name="zip"
+                    autoComplete="zip"
                   />
                 </Box>
               </Grid>
@@ -282,7 +291,6 @@ function Register(props) {
                     label="Username"
                     name="username"
                     autoComplete="username"
-                    autoFocus
                   />
                 </Box>
               </Grid>
@@ -337,6 +345,7 @@ function Register(props) {
             
           </form>
        </Paper>
+      </Grow>
       </Container>
       </MuiThemeProvider>
   );
