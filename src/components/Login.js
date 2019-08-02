@@ -78,6 +78,7 @@ function Login(props) {
     })
     .then(function (response) {
       //console.log(response);
+      localStorage.setItem('userX', JSON.stringify(response.data))
       if(response.status === 200){
         props.history.push('/address-book')
       }

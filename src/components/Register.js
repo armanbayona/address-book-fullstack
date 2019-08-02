@@ -78,7 +78,7 @@ function Register(props) {
   });
 
   const handleSubmit = (e) => {
-    //e.stopPropagation();
+    e.preventDefault();
     console.log('submit');
     axios.post('http://localhost:3001/api/sign-up', {
       ...state

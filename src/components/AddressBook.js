@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import clsx from 'clsx';
 import { 
   AppBar, 
@@ -17,13 +18,17 @@ import {
   CardContent,
   CardMedia,
   Collapse,
+  Menu,
+  MenuItem,
 } from '@material-ui/core';
 import { 
-  Menu, 
   AccountCircle,
   MoreVert,
   ExpandMore, 
 } from '@material-ui/icons';
+
+import MenuIcon from '@material-ui/icons/Menu';
+
 import { 
   makeStyles, 
   MuiThemeProvider, 
@@ -64,6 +69,35 @@ const useStyles = makeStyles(theme => ({
 
 function Navbar(props) {
   const classes = useStyles();
+  const username = JSON.parse(localStorage.getItem('userX'));
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [state, setState] = useState({
+    username: username.username,
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem('userX');
+  }
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
+
+// const a = () => {
+//    axios.get('http://localhost:3001/api/contacts/1')
+//   .then(function (response) {
+//     console.log(response);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
+// }
+// a();
+
 
   return (
     <MuiThemeProvider theme = { theme }>
@@ -71,24 +105,38 @@ function Navbar(props) {
         <Container maxWidth="md">
           <Toolbar variant="regular">
             <IconButton edge="start" color="inherit" aria-label="menu">
-              <Menu />
+              <MenuIcon />
             </IconButton>
             <Box my={1}>
               <Typography variant="h6" color="inherit">
                 AddressBook
               </Typography>
             </Box>
-            <IconButton edge="end" style={{marginLeft: 'auto'}} color="inherit" aria-label="menu">
+            <IconButton style={{marginLeft: 'auto'}} edge="end" color="inherit" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
               <AccountCircle />
+              <Typography style={{marginLeft: '5px'}} variant="h6" color="inherit">
+                {state.username}
+              </Typography>
             </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            </Menu>
           </Toolbar>
         </Container>
       </AppBar>
+
       <Container maxWidth="md">
         <Box p={2}>
           {Contact('Arman', 'Bayona', 67645745648)}
         </Box>
       </Container>
+
     </MuiThemeProvider> 
   );
 }
