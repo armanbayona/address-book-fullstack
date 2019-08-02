@@ -3,6 +3,7 @@ const massive = require('massive');
 const cors = require('cors');
 
 const users = require('./controllers/users.js');
+const contacts = require('./controllers/contacts.js');
 
 massive({
   host: 'localhost',
@@ -23,6 +24,8 @@ massive({
   app.post('/api/sign-up', users.create);
   app.get('/api/protected/data', users.protected);
   app.post('/api/login', users.login);
+  //ROUTING CONTACTS
+  app.post('/api/contact/create', contacts.create);
 
   const PORT = 3001;
   app.listen(PORT, () => {
