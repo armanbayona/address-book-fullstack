@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const users = require('./controllers/users.js');
 const contacts = require('./controllers/contacts.js');
+const books = require('./controllers/books.js');
 
 massive({
   host: 'localhost',
@@ -26,6 +27,14 @@ massive({
   app.post('/api/login', users.login);
   //ROUTING CONTACTS
   app.post('/api/contact/create', contacts.create);
+  app.get('/api/contacts/:book_id', contacts.read);
+  app.patch('/api/contact/update/:contact_id', contacts.update);
+  app.delete('/api/contact/remove/:contact_id', contacts.remove);
+  //ROUTING BOOK/GROUPS
+  app.post('/api/book/create', books.create);
+  app.get('/api/books/:user_id', books.read);
+  app.patch('/api/book/update/:book_id', books.update);
+  app.delete('/api/book/remove/:book_id', books.remove);
 
   const PORT = 3001;
   app.listen(PORT, () => {
