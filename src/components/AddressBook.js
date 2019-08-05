@@ -68,15 +68,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Navbar(props) {
+
+  if(localStorage.userX){
+    console.log(localStorage);
+  }
+  else{
+    props.history.push('/')
+  }
+
   const classes = useStyles();
   const username = JSON.parse(localStorage.getItem('userX'));
   const [anchorEl, setAnchorEl] = useState(null);
   const [state, setState] = useState({
-    username: username.username,
+      username: username.username,
   });
-
   const handleLogout = () => {
     localStorage.removeItem('userX');
+    props.history.push('/')
   }
 
   function handleClick(event) {
@@ -175,3 +183,4 @@ function Contact(firstname, lastname, number) {
 }
 
 export default Navbar;
+

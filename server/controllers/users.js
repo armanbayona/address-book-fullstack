@@ -79,7 +79,6 @@ function login(req, res) {
         const token = jwt.sign({ id: user.user_id }, secret);
         delete user.password; 
         res.status(200).json({ ...user, token });
-        history.push('/address-book')
       });
     })
     .catch(err => {

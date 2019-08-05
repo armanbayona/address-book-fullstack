@@ -5,7 +5,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import AddressBook from './components/AddressBook';
 
-function Routes() {
+function App() {
   return (
     <BrowserRouter>
       <Switch>
@@ -17,4 +17,4 @@ function Routes() {
   )
 };
 
-export default Routes;
+export default App;
