@@ -35,6 +35,17 @@ function read(req, res) {
 	});
 }
 
+function read_profile(req, res) {
+	const db = req.app.get('db');
+
+	db.query(`SELECT * FROM contacts INNER JOIN profiles ON contacts.profile_id = profiles.profile_id AND contacts.book_id = ${req.params.book_id}`)
+	.then(contact => res.status(200).json(contact))
+	.catch(err => {
+	  console.error(err);
+	  res.status(500).end();
+	});
+}
+
 
 function update(req, res) {
 	const db = req.app.get('db');
@@ -92,5 +103,5 @@ function remove(req, res) {
 
 
 module.exports = {
-  create, read, update, remove,
+  create, read, read_profile, update, remove,
 };

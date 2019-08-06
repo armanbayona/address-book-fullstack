@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Navbar from './Book-Components/Navbar';
 import Menubar from './Book-Components/Menu';
+import Contacts from './Book-Components/Contacts';
 import clsx from 'clsx';
 import { 
   AppBar, 
@@ -86,26 +87,36 @@ function Book(props) {
   const classes = useStyles();
   useEffect(() =>{
     console.log("Book Rendered");
+    getBooks();
   }, []);
 
   const user = JSON.parse(localStorage.getItem('USER_DATA'));
+
   const [state, setState] = useState({
     username: user.username,
     user_id: user.user_id,
-    current_book: 0,
     books: [],
-    mbooks: [
-      {book_id: 5, user_id: 103, name: "default", date_created: "2019-08-02T01:37:35.857Z"},
-      {book_id: 7, user_id: 103, name: "friends", date_created: "2019-08-04T22:47:34.004Z"}
-    ],
+    current_book: 0,
   });
+  
+  const getBooks = () => {
+    axios.get(`http://localhost:3001/api/books/${user.user_id}`)
+    .then(response => {
+      const found = response.data.find( book => book.name === 'all')
+      setState({ ...state, books: response.data, current_book: found.book_id});
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+  }
 
   return (
     <MuiThemeProvider theme = { theme }>
-      <Navbar username={state.username}/>
+      <Navbar username={user.username}/>
 
       <Container maxWidth="md">
-        <Menubar user_id={state.user_id} />
+        <Menubar state={state} setState={setState}/>
+        <Contacts book={state.current_book}/>
       </Container>
 
     </MuiThemeProvider> 

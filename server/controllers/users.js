@@ -24,7 +24,7 @@ function create(req, res) {
 			.then(user => {
 				db.books.insert({
 					user_id: user.user_id,
-					name: "default"
+					name: "all"
 				})
 				.then(book => {
 					const token = jwt.sign({ id: user.user_id }, secret);

@@ -10,9 +10,9 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route component={Book} path="/" />
+        <Route component={Book} path="/contacts" />
         <Route component={AddressBook} path="/x" />
-        <Route exact component={Login} path="/login" />
+        <Route exact component={Login} path="/" />
         <Route component={Register} path="/register" />
       </Switch>
     </BrowserRouter>

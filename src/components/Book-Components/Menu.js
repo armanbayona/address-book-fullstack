@@ -3,54 +3,60 @@ import axios from 'axios';
 import { 
   Box,
   Button,
+  IconButton,
+  Tooltip,
   Card,
   Select,
   MenuItem,
+  Toolbar,
+  Grid,
 } from '@material-ui/core';
+import { Add, GroupAdd, PersonAdd } from '@material-ui/icons';
 
 function Menu(props) {
   useEffect(() =>{
     console.log("Menu Rendered");
-    getBooks();
   }, []);
 
-  const [state, setState] = useState({
-    current_book: 0,
-    books: [],
-  })
-  
-  const handleChange = (e) => setState({
-    ...state, 
-    [e.target.name]: e.target.value
-  });
-  
-  const getBooks = () => {
-    axios.get(`http://localhost:3001/api/books/${props.user_id}`)
-    .then(response => {
-      //console.log(response);
-      const found = response.data.find( book => book.name === 'default')
-      setState({ ...state, books: response.data, current_book: found.book_id});
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+  const handleChange = (e) => {
+    props.setState({...props.state, [e.target.name]: e.target.value});
   }
 
   return (
     <Box p={2}>
       <Card>
-        <Box p={2}>
-          <Select 
-            name="current_book"
-            onChange={handleChange} 
-            value={state.current_book}
-          >
-            {state.books.map((book) => (
+        <Toolbar variant="regular">      
+          <Select name="current_book" onChange={handleChange} value={props.state.current_book}>
+            {props.state.books.map((book) => (
               <MenuItem key={book.book_id} value={book.book_id}>{book.name.toUpperCase()}</MenuItem>
             ))}
           </Select>
-          <Box>{JSON.stringify(state)}</Box>
-        </Box>
+          <Select value="1">
+              <MenuItem value="1">SORT BY NAME</MenuItem>
+          </Select>
+
+
+          <Box ml="auto">
+            <Grid container>
+              <Box mx={1}>
+                <Tooltip title="Create New Group" placement="buttom" color="primary">
+                  <IconButton type="button" variant="contained" color="primary">
+                    <GroupAdd style={{ fontSize: 30 }}/>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+              <Box mx={1}>
+                <Tooltip title="Add New Contact" placement="buttom">
+                  <IconButton type="button" variant="contained" color="primary">
+                    <PersonAdd style={{ fontSize: 30 }}/>
+                  </IconButton>
+                </Tooltip>
+              </Box>
+            </Grid>
+          </Box>
+
+          
+        </Toolbar>
       </Card>
     </Box>
   );

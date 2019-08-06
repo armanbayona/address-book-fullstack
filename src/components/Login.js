@@ -80,7 +80,7 @@ function Login(props) {
       //console.log(response);
       localStorage.setItem('USER_DATA', JSON.stringify(response.data))
       if(response.status === 200){
-        props.history.push('/address-book')
+        props.history.push('/contacts')
       }
     })
     .catch(function (error) {
