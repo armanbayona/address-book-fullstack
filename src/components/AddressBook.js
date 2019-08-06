@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import clsx from 'clsx';
 import { 
@@ -21,6 +21,15 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
+
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import FilledInput from '@material-ui/core/FilledInput';
+import InputLabel from '@material-ui/core/InputLabel';
+
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
 import { 
   AccountCircle,
   MoreVert,
@@ -64,26 +73,57 @@ const useStyles = makeStyles(theme => ({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-  }
+  },
+  formControl: {
+
+  },
 }));
 
 function Navbar(props) {
-
-  if(localStorage.userX){
-    console.log(localStorage);
-  }
-  else{
-    props.history.push('/')
-  }
+  const [a, setAa] = useState('hi');
+  setAa('hello');
+  console.log(a)
 
   const classes = useStyles();
-  const username = JSON.parse(localStorage.getItem('userX'));
+  const user = JSON.parse(localStorage.getItem('USER_DATA'));
   const [anchorEl, setAnchorEl] = useState(null);
+  
   const [state, setState] = useState({
-      username: username.username,
+    username: user.username,
+    user_id: user.user_id,
+    current_book: 0,
+    books: [],
+    mbooks: [
+      {book_id: 5, user_id: 103, name: "default", date_created: "2019-08-02T01:37:35.857Z"},
+      {book_id: 7, user_id: 103, name: "friends", date_created: "2019-08-04T22:47:34.004Z"}
+    ],
   });
+
+  useEffect(() => {
+
+    axios.get(`http://localhost:3001/api/books/103`)
+      .then(response => {
+        setState({ ...state, books: response.data });
+        //console.log(response)
+        setTimeout(() => findDefault(), 2000)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+
+  const findDefault = () => {
+    const res = state.books.find( book => book.name === 'default')
+    //console.log(res)
+    //console.log(state)
+        //setState({ ...state, current_book: res.book_id});
+  }
+  
+
+  }, []);
+
+
   const handleLogout = () => {
-    localStorage.removeItem('userX');
+    localStorage.removeItem('USER_DATA');
     props.history.push('/')
   }
 
@@ -95,17 +135,20 @@ function Navbar(props) {
     setAnchorEl(null);
   }
 
-// const a = () => {
-//    axios.get('http://localhost:3001/api/contacts/1')
-//   .then(function (response) {
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-// }
-// a();
 
+ 
+  
+// const getContacts = () => {
+//   axios.get('http://localhost:3001/api/contacts/1')
+//     .then(function (response) {
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       console.log(error);
+//     });
+// }
+// //getContacts();
+ const inputLabel = React.useRef(null);
 
   return (
     <MuiThemeProvider theme = { theme }>
@@ -140,7 +183,21 @@ function Navbar(props) {
       </AppBar>
 
       <Container maxWidth="md">
+
         <Box p={2}>
+          <Card>
+            <Box p={2}>
+              <Select value={state.current_book}>
+                {state.books.map((book) => (
+                  <MenuItem key={book.book_id} value={book.book_id}>{book.name.toUpperCase()}</MenuItem>
+                ))
+              }
+              </Select>
+            </Box>
+          </Card>
+        </Box>
+
+        <Box px={2}>
           {Contact('Arman', 'Bayona', 67645745648)}
         </Box>
       </Container>
