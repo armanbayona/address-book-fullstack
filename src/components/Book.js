@@ -4,46 +4,12 @@ import axios from 'axios';
 import Navbar from './Book-Components/Navbar';
 import Menubar from './Book-Components/Menu';
 import Contacts from './Book-Components/Contacts';
-import clsx from 'clsx';
-import { 
-  AppBar, 
-  Toolbar, 
+import {  
   Container, 
-  Grid, 
   Box, 
-  Button,
-  Typography,
-  IconButton,
-  Avatar,
-  Card,
-  CardHeader,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Collapse,
-  Menu,
-  MenuItem,
 } from '@material-ui/core';
 
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
-import InputLabel from '@material-ui/core/InputLabel';
-
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
 import { 
-  AccountCircle,
-  MoreVert,
-  ExpandMore, 
-} from '@material-ui/icons';
-
-import MenuIcon from '@material-ui/icons/Menu';
-
-import { 
-  makeStyles, 
   MuiThemeProvider, 
   createMuiTheme 
 } from '@material-ui/core/styles';
@@ -62,29 +28,9 @@ const theme = createMuiTheme({
   }
 });
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.grey[700],
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-  },
-  formControl: {
-
-  },
-}));
 
 function Book(props) {
-  const classes = useStyles();
+ 
   useEffect(() =>{
     console.log("Book Rendered");
     getBooks();
@@ -96,27 +42,52 @@ function Book(props) {
     username: user.username,
     user_id: user.user_id,
     books: [],
+    contacts: [],
     current_book: 0,
   });
   
+  //GET BOOK
   const getBooks = () => {
     axios.get(`http://localhost:3001/api/books/${user.user_id}`)
-    .then(response => {
-      const found = response.data.find( book => book.name === 'all')
-      setState({ ...state, books: response.data, current_book: found.book_id});
+    .then(books => {
+      const found = books.data.find( book => book.name === 'all')
+      setState({ ...state, books: books.data, current_book: found.book_id});
+
+     /* axios.get(`http://localhost:3001/api/contacts/profile/${found.book_id}`)
+      .then(contacts => {
+        console.log(contacts.data);
+        setState({ 
+          ...state, 
+          books: books.data,
+          current_book: found.book_id,
+          contacts: contacts.data})
+      })
+      .catch(function (error) {
+        console.log(error);
+      })*/
+      
     })
     .catch(function (error) {
       console.log(error);
     })
   }
 
+  const getContacts = (id) => {
+    
+  }
+
+
+
+
   return (
     <MuiThemeProvider theme = { theme }>
       <Navbar username={user.username}/>
 
       <Container maxWidth="md">
-        <Menubar state={state} setState={setState}/>
-        <Contacts book={state.current_book}/>
+        <Box p={1}>
+          <Menubar state={state} setState={setState}/>
+          <Contacts current_book={state.current_book} contacts={state.contacts}/>
+        </Box>
       </Container>
 
     </MuiThemeProvider> 

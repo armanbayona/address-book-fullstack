@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import clsx from 'clsx';
 import { 
@@ -13,15 +13,13 @@ import {
   CardContent,
   CardMedia,
   Collapse,
-  Menu,
-  MenuItem,
+  Button
 } from '@material-ui/core';
 
 import { 
   ExpandMore, 
 } from '@material-ui/icons';
 
-import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -46,15 +44,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Contacts(props) {
-   const classes = useStyles();
+  const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
 
   function handleExpandClick() {
     setExpanded(!expanded);
   }
 
+ 
+
 	return (
-  <Box py={1}>
+  <Box pb={1}>
   	 <Card>
         <CardHeader avatar={<Avatar aria-label="recipe">R</Avatar>}
           action={
@@ -71,9 +71,13 @@ function Contacts(props) {
           subheader={`${props.contact.mobile_phone}`}
         />
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>Details</Typography>
-          </CardContent>
+          {/*<CardContent>
+      
+          </CardContent>*/}
+          <CardActions>
+            <Button size="small" onClick={()=>props.editContact(props.contact.contact_id)} color="primary">Edit</Button>
+            <Button size="small" onClick={()=>props.deleteContact(props.contact.contact_id)} color="primary">Delete</Button>
+          </CardActions>
         </Collapse>
     </Card>
   </Box>
