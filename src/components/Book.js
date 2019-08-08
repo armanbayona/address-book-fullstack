@@ -32,6 +32,7 @@ const theme = createMuiTheme({
 function Book(props) {
  
   useEffect(() =>{
+    console.log(props.sort_by)
     console.log("Book Rendered");
     getBooks();
   }, []);
@@ -44,6 +45,8 @@ function Book(props) {
     books: [],
     contacts: [],
     current_book: 0,
+    sort_by: 'last_name',
+    order_by: 'ASC',
   });
   
   //GET BOOK
@@ -86,7 +89,7 @@ function Book(props) {
       <Container maxWidth="md">
         <Box p={1}>
           <Menubar state={state} setState={setState}/>
-          <Contacts current_book={state.current_book} contacts={state.contacts}/>
+          <Contacts sort_by={state.sort_by} order_by={state.order_by} current_book={state.current_book} contacts={state.contacts}/>
         </Box>
       </Container>
 

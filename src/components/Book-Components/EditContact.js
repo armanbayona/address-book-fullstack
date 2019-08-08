@@ -1,91 +1,41 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Grow from '@material-ui/core/Grow';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { 
+  Box,
+  Button,
+  IconButton,
+  Tooltip,
+  Grid,
+} from '@material-ui/core';
+import { PersonAddTwoTone } from '@material-ui/icons';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: '#00796b',
-    },
-    secondary: {
-      main: '#ff5722',
-    },
-  },
-  typography: { 
-    useNextVariants: true
-  },
-  overrides: {
-    // Style sheet name ⚛️
-    MuiButton: {
-      // Name of the rule
-      text: {
-        // Some CSS
-        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-        borderRadius: 3,
-        border: 0,
-        color: 'white',
-        height: 48,
-        padding: '0 30px',
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-      },
-    },
-  },
-});
+function FormDialog(props) {
+	//OPEN/CLOSE DIALOG
+	 const [open, setOpen] = React.useState(false);
 
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.grey[700],
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: theme.spacing(3)
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0),
-  },
-  link: {
-    textDecoration: 'none',
-  },
-}));
+  function handleClickOpen() {
+    setOpen(true);
+  }
 
-function Register(props) {
-  const classes = useStyles();
+  function handleClose() {
+    setOpen(false);
+  }
 
+  //RESPONSIVE FULLSCREEN
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+  //UPDATE AND SUBMIT DATA
   const [state, setState] = useState({
-    first_name: '',
-    last_name: '',
-    home_phone: '',
-    mobile_phone: '',
-    work_phone: '',
-    email: '',
-    address_line: '',
-    city: '',
-    state: '',
-    country: '',
-    zip: '',
-    username: '',
-    password: '',
+    ...props.contact,
   });
 
   const handleChange = (e) => setState({
@@ -93,35 +43,40 @@ function Register(props) {
     [e.target.name]: e.target.value
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('submit');
-    axios.post('http://localhost:3001/api/sign-up', {
-      ...state
-    })
-    .then(function (response) {
-      console.log(response);
-      props.history.push('/')
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log('edit');
+  //   console.table(state);
+  //   console.log(state.first_name)
+		// //props.editContacts({...props.contacts, contacts: [...props.state.contacts, response.data]});
+  //   //console.log(props.current_book);
+  //   //console.log(state.first_name);
+	 //  // axios.post(`http://localhost:3001/api/contact/create`, {
+	 //  //   ...state,
+	 //  //   book_id: props.current_book,
+	 //  // })
+	 //  // .then(function (response) {
+	 //  //   console.log(response.data);
+	 //  //   setOpen(false);
+	 //  //   props.setState({...props.state, contacts: [...props.state.contacts, response.data]});
+	 //  // })
+	 //  // .catch(function (error) {
+	 //  //   console.log(error);
+	 //  // });
+  // }
 
-  return (
-    <MuiThemeProvider theme = { theme }>
-      <Container component="main" maxWidth="md">
-          <Grow in={true}>
-          <Paper className={classes.paper} color="primary">
-            <Typography component="h1" variant="h5">
-              Register
-            </Typography>
-          <form onSubmit={handleSubmit} className={classes.form}>
-          
+	return (
+		<div>
+			<Button size="small" onClick={handleClickOpen} color="primary">Edit</Button>
+				<Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+		    	<DialogTitle id="form-dialog-title">Edit Contact</DialogTitle>
+		    	<DialogContent>
+					<form id="contact" onSubmit={(e) => { e.preventDefault(); setOpen(false); props.handleExpandClick(); props.editContact(state)}}> 
             <Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                  	value={state.first_name}
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
@@ -138,6 +93,7 @@ function Register(props) {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                  	value={state.last_name}
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
@@ -156,6 +112,7 @@ function Register(props) {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                  	value={state.home_phone}
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
@@ -170,10 +127,12 @@ function Register(props) {
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
+                  	value={state.mobile_phone}
                     onChange={handleChange}
                     variant="outlined"
                     margin="normal"
                     fullWidth
+                    required
                     id="mobilephone"
                     label="Mobile Phone"
                     name="mobile_phone"
@@ -183,7 +142,7 @@ function Register(props) {
               </Grid>
             </Grid>
 
-            <Grid container>
+            {/*<Grid container>
               <Grid item md={6} xs={12}>
                 <Box px={1}>
                   <TextField
@@ -295,79 +254,20 @@ function Register(props) {
                   />
                 </Box>
               </Grid>
-            </Grid>
+            </Grid>*/}
+           </form>
+		    	</DialogContent>
+		    <DialogActions>
+		      <Button onClick={handleClose} color="primary">
+		        Cancel
+		      </Button>
+		      <Button form="contact" type="submit" color="primary">
+		        OK
+		      </Button>
+		    </DialogActions>
+		  	</Dialog>
+		</div>
+	);
+	}
 
-            <Grid container>
-              <Grid item md={6} xs={12}>
-                <Box px={1}>
-                  <TextField
-                    onChange={handleChange}
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
-                    autoComplete="username"
-                  />
-                </Box>
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <Box px={1}>
-                  <TextField
-                    onChange={handleChange}
-                    variant="outlined"
-                    margin="normal"
-                    type="password"
-                    required
-                    fullWidth
-                    id="password"
-                    label="Password"
-                    name="password"
-                    autoComplete="password"
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-
-            <Grid container alignItems="center">
-              <Grid item md={6} xs={12}>
-                <Box px={1}>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                  >
-                    Register
-                  </Button>
-                </Box>
-              </Grid>
-              <Grid item md={6} xs={12}>
-                <Box px={1}>
-                  <Link to="/" className={classes.link} >
-                    <Button
-                    type="button"
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    className={classes.button}
-                    >
-                      BACK
-                    </Button>
-                  </Link>
-                </Box>
-              </Grid>
-            </Grid>
-            
-          </form>
-       </Paper>
-      </Grow>
-      </Container>
-      </MuiThemeProvider>
-  );
-}
-
-export default Register;
+	export default FormDialog;

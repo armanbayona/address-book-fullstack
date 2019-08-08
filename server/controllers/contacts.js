@@ -37,12 +37,14 @@ function read(req, res) {
 
 function read_profile(req, res) {
 	const db = req.app.get('db');
-
-	db.query(`SELECT * FROM contacts INNER JOIN profiles ON contacts.profile_id = profiles.profile_id AND contacts.book_id = ${req.params.book_id}`)
+	
+	db.query(`SELECT * FROM contacts INNER JOIN profiles ON contacts.profile_id = profiles.profile_id AND contacts.book_id = ${req.params.book_id} ORDER BY ${req.params.sort_by} ${req.params.order_by} `)
 	.then(contact => res.status(200).json(contact))
 	.catch(err => {
-	  console.error(err);
+	  //console.error(err);
+	  console.log(req.body)
 	  res.status(500).end();
+
 	});
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import EditContact from './EditContact';
 import axios from 'axios';
 import clsx from 'clsx';
 import { 
@@ -75,7 +76,11 @@ function Contacts(props) {
       
           </CardContent>*/}
           <CardActions>
-            <Button size="small" onClick={()=>props.editContact(props.contact.contact_id)} color="primary">Edit</Button>
+            <EditContact 
+              editContact={props.editContact}
+              contact={props.contact} 
+              handleExpandClick={handleExpandClick}
+            />
             <Button size="small" onClick={()=>props.deleteContact(props.contact.contact_id)} color="primary">Delete</Button>
           </CardActions>
         </Collapse>

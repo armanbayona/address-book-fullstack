@@ -28,7 +28,7 @@ massive({
   //ROUTING CONTACTS
   app.post('/api/contact/create', contacts.create);
   app.get('/api/contacts/:book_id', contacts.read);
-  app.get('/api/contacts/profile/:book_id', contacts.read_profile);
+  app.get('/api/contacts/profile/:book_id/:sort_by/:order_by', contacts.read_profile);
   app.patch('/api/contact/update/:contact_id', contacts.update);
   app.delete('/api/contact/remove/:contact_id', contacts.remove);
   //ROUTING BOOK/GROUPS

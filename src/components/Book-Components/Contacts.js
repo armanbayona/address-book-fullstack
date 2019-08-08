@@ -9,31 +9,48 @@ import {
 function Contacts(props) {
   useEffect(() => {
     getContacts(props.current_book);
-    addContact(props.contacts);
-  }, [props.contacts, props.current_book]);
+  }, [props.contacts, props.current_book, props.sort_by, props.order_by]);
 
   const [state, setState] = useState({
     contacts: [],
+    current_book: 0,
   });
-
+  
+  //GET WHEN SWITCHED
   const getContacts = (id) => {
-    axios.get(`http://localhost:3001/api/contacts/profile/${id}`)
+    axios.get(`http://localhost:3001/api/contacts/profile/${id}/${props.sort_by}/${props.order_by}`)
     .then(response => {
-      console.log('switch');
-      setState({ ...state, contacts: response.data});
+      console.log('get');
+      setState({ ...state, contacts: response.data, current_book: id});
     })
     .catch(function (error) {
       console.log(error);
     })
   }
 
-  const addContact = (x) => {
-    console.log('add');
-    setState({ ...state, contacts: [...state.contacts, x]});
-  }
+  // const addContact = (contact) => {
+  //   console.log('add');
+  //   setState({ ...state, contacts: [...state.contacts, contact]});
+  // }
   
-   const editContact = (e) => {
-    console.log(e)
+  const editContact = (contact) => {
+    console.log(contact)
+    const { contact_id, profile_id, date_created, ...updated_contact } = contact;
+
+    axios.patch(`http://localhost:3001/api/contact/update/${contact_id}`, {
+      ...updated_contact
+    })
+    .then(response => {
+      console.log(response.data);
+      const unedited = state.contacts.filter(contact => contact.contact_id !== contact_id)
+      setState({...state, contacts: [...unedited, updated_contact] })
+      //const remains = state.contacts.filter(contact => contact.contact_id !== id)
+      //setState({...state, contacts: remains })
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+
   }
 
   const deleteContact = (id) => {

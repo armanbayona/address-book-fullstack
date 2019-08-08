@@ -63,9 +63,9 @@ function AddBook(props) {
 	return (
 		<div>
 			<Tooltip title="New Group" placement="left">
-				<IconButton onClick={handleClickOpen} type="button" variant="contained" color="primary">
-					<GroupAddTwoTone style={{ fontSize: 30 }}/>
-				</IconButton>
+				<Button style={{height: '40px', margin: '0 8px 0 0'}} onClick={handleClickOpen} type="button" variant="outlined" color="primary">
+					<GroupAddTwoTone style={{ margin: '0 8px 0 0' }}/> NEW GROUP
+				</Button>
 			</Tooltip>
 	
 		  <Dialog fullScreen={fullScreen} open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

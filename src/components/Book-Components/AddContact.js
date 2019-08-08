@@ -73,9 +73,9 @@ function FormDialog(props) {
 	return (
 		<div>
 			<Tooltip title="Add New Contact" placement="left">
-				<IconButton onClick={handleClickOpen} type="button" variant="contained" color="primary">
-					<PersonAddTwoTone style={{ fontSize: 30 }}/>
-				</IconButton>
+				<Button style={{height: '40px'}} onClick={handleClickOpen} type="button" variant="outlined" color="primary">
+					<PersonAddTwoTone style={{ margin: '0 8px 0 0' }}/> ADD CONTACT
+				</Button>
 			</Tooltip>
 		      
 			
