@@ -18,7 +18,7 @@ import {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00796b',
+      main: '#FF5722',
     },
     secondary: {
       main: '#ff5722',
@@ -48,6 +48,7 @@ function Book(props) {
     current_book: 0,
     sort_by: 'last_name',
     order_by: 'ASC',
+    search: '',
   });
   
   //GET BOOK
@@ -76,12 +77,7 @@ function Book(props) {
     })
   }
 
-  const getContacts = (id) => {
-    
-  }
-
-
-
+  
 
   return (
     <MuiThemeProvider theme = { theme }>
@@ -90,7 +86,7 @@ function Book(props) {
       <Container maxWidth="lg">
         <Box p={1}>
           <Menubar state={state} setState={setState}/>
-          <Contacts sort_by={state.sort_by} order_by={state.order_by} current_book={state.current_book} contacts={state.contacts}/>
+          <Contacts state={state} sort_by={state.sort_by} order_by={state.order_by} current_book={state.current_book} contacts={state.contacts}/>
         </Box>
       </Container>
 

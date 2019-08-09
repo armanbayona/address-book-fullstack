@@ -74,6 +74,18 @@ function Menu(props) {
                   <MenuItem color="primary" value="ASC">A - Z</MenuItem>
                   <MenuItem color="primary" value="DESC">Z - A</MenuItem>
               </TextField>
+
+              <TextField
+                label="Search"
+                style={{color: '#00796b', margin: '0px 8px 0px 0px',}}
+                margin="dense"
+                variant="outlined"
+                name="search"
+                onChange={handleChange}
+              >
+                  
+              </TextField>
+
             </Grid>
           </Box>
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import axios from 'axios';
 import Contact from './Contact';
+import axios from 'axios';
 import { 
- Box,
+  Box,
 } from '@material-ui/core';
- import {
+import {
   red,
   pink,
   purple,
@@ -40,16 +40,18 @@ const randomProperty = function (obj) {
 };
 
 function Contacts(props) {
+  //STATE HOOKS
+  const [state, setState] = useState({
+    contacts: [],
+    current_book: 0,
+  });
+
   //RUN WHEN PROPS CHANGES
   useEffect(() => {
     getContacts(props.current_book);
   }, [props.contacts, props.current_book, props.sort_by, props.order_by]);
 
-  const [state, setState] = useState({
-    contacts: [],
-    current_book: 0,
-  });
-  //GET WHEN SWITCHED GROUPS
+  //GET DATA WHEN PROPS CHANGES
   const getContacts = (id) => {
     axios.get(`http://localhost:3001/api/contacts/profile/${id}/${props.sort_by}/${props.order_by}`)
     .then(response => {
@@ -99,7 +101,7 @@ function Contacts(props) {
     })
   }
 
-  const search = 'Tony';
+  const search = props.state.search;
 	return (
 		<Box pt={1}>
 			{state.contacts.map((contact, i) => {

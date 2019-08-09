@@ -92,9 +92,7 @@ function Contacts(props) {
   
   const [expanded, setExpanded] = useState(false);
 
-  function handleExpandClick(e) {
-    e.preventDefault()
-    e.stopPropagation()
+  function handleExpandClick() {
     setExpanded(!expanded);
   }
 
@@ -125,7 +123,7 @@ function Contacts(props) {
               contact={props.contact} 
               handleExpandClick={handleExpandClick}
             />
-            <Button size="small" onClick={()=>props.deleteContact(props.contact.contact_id)} color="primary">Delete</Button>
+            <Button size="small" onClick={()=> { handleExpandClick(); props.deleteContact(props.contact.contact_id)}} color="primary">Delete</Button>
           </CardActions>
         </Collapse>
     </Card>
