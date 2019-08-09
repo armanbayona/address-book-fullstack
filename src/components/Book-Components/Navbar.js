@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Sidenav from './Sidenav';
 import { 
   AppBar, 
   Toolbar, 
@@ -9,9 +10,10 @@ import {
   Menu,
   MenuItem,
 } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { 
+	AccountCircle 
+} from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
-import Sidenav from './Sidenav';
 
 function Navbar(props) {
   useEffect(() =>{
@@ -22,7 +24,7 @@ function Navbar(props) {
 
   const handleLogout = () => {
     localStorage.removeItem('USER_DATA');
-    props.history.push('/login')
+    window.location = '/';
   }
 
   function handleClick(event) {

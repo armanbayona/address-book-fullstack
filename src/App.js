@@ -1,19 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Book from './components/Book';
-import AddressBook from './components/AddressBook';
 import Login from './components/Login';
 import Register from './components/Register';
+import Book from './components/Book';
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route component={Book} path="/contacts" />
-        <Route component={AddressBook} path="/x" />
         <Route exact component={Login} path="/" />
         <Route component={Register} path="/register" />
+        <Route component={Book} path="/book" />
       </Switch>
     </BrowserRouter>
   )

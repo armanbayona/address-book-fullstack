@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import EditContact from './EditContact';
 import axios from 'axios';
 import clsx from 'clsx';
- import {
+import {
   red,
   pink,
   purple,
@@ -37,23 +37,15 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.grey[700],
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
   },
-  formControl: {
-
+  expandOpen: {
+    transform: 'rotate(180deg)',
   },
 }));
 
@@ -95,11 +87,12 @@ function Contacts(props) {
   function handleExpandClick() {
     setExpanded(!expanded);
   }
-
+ 
+  
 	return (
   <Box pb={1}>
   	 <Card>
-        <CardHeader avatar={<Avatar style={{ backgroundColor: props.color }} aria-label="recipe">{props.contact.first_name.charAt(0)}</Avatar>}
+        <CardHeader onClick={handleExpandClick} avatar={<Avatar style={{ backgroundColor: props.color }} aria-label="recipe">{props.contact.first_name.charAt(0)}</Avatar>}
           action={
             <IconButton 
               className={clsx(classes.expand, {[classes.expandOpen]: expanded,})}

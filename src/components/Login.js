@@ -15,10 +15,10 @@ import { makeStyles, MuiThemeProvider, createMuiTheme } from '@material-ui/core/
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00796b',
+      main: '#FF5722',
     },
     secondary: {
-      main: '#ff5722',
+      main: '#795548',
     },
   },
   typography: { 
@@ -29,7 +29,7 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.grey[700],
+      backgroundColor: '#3E2723',
     },
   },
   paper: {
@@ -77,10 +77,9 @@ function Login(props) {
       ...state
     })
     .then(function (response) {
-      //console.log(response);
       localStorage.setItem('USER_DATA', JSON.stringify(response.data))
       if(response.status === 200){
-        props.history.push('/contacts')
+        props.history.push('/book')
       }
     })
     .catch(function (error) {

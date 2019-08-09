@@ -33,7 +33,7 @@ const color = {
   lightGreen: lightGreen[300],
 }
 
-const randomProperty = function (obj) {
+const setAvatarColor = function (obj) {
   const keys = Object.keys(obj)
   console.log('rand')
   return obj[keys[ keys.length * Math.random() << 0]];
@@ -106,7 +106,7 @@ function Contacts(props) {
 		<Box pt={1}>
 			{state.contacts.map((contact, i) => {
         return (contact.first_name.match(new RegExp(search, 'gi')) || contact.last_name.match(new RegExp(search, 'gi'))  ? 
-          <Contact color={randomProperty(color)} key={i} contact={contact}  deleteContact={deleteContact} editContact={editContact} /> : null)    
+          <Contact color={setAvatarColor(color)} key={i} contact={contact}  deleteContact={deleteContact} editContact={editContact} /> : null)    
       })}
     </Box>
 	);
