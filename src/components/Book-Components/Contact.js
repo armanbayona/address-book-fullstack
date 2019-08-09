@@ -2,6 +2,19 @@ import React, { useState } from 'react';
 import EditContact from './EditContact';
 import axios from 'axios';
 import clsx from 'clsx';
+ import {
+  red,
+  pink,
+  purple,
+  deepPurple,
+  indigo,
+  blue,
+  lightBlue,
+  cyan,
+  teal,
+  green,
+  lightGreen
+} from '@material-ui/core/colors';
 import { 
   Avatar,
   Box,
@@ -44,20 +57,51 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Contacts(props) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
 
-  function handleExpandClick() {
-    setExpanded(!expanded);
+
+
+  const color = { 
+    red: red[300],
+    pink: pink[300],
+    purple: purple[300],
+    deepPurple: deepPurple[300],
+    indigo: indigo[300],
+    blue: blue[300],
+    lightBlue: lightBlue[300],
+    cyan: cyan[300],
+    teal: teal[300],
+    green: green[300],
+    lightGreen: lightGreen[300],
   }
 
- 
+  const randomProperty = function (obj) {
+    const keys = Object.keys(obj)
+    console.log('rand')
+    return obj[keys[ keys.length * Math.random() << 0]];
+  };
+
+  
+
+function Contacts(props) {
+  const classes = useStyles();
+
+  //const random = randomProperty(color);
+  React.useEffect(() => {
+    console.log(props.color)
+  }, [])
+  
+  const [expanded, setExpanded] = useState(false);
+
+  function handleExpandClick(e) {
+    e.preventDefault()
+    e.stopPropagation()
+    setExpanded(!expanded);
+  }
 
 	return (
   <Box pb={1}>
   	 <Card>
-        <CardHeader avatar={<Avatar aria-label="recipe">R</Avatar>}
+        <CardHeader avatar={<Avatar style={{ backgroundColor: props.color }} aria-label="recipe">{props.contact.first_name.charAt(0)}</Avatar>}
           action={
             <IconButton 
               className={clsx(classes.expand, {[classes.expandOpen]: expanded,})}

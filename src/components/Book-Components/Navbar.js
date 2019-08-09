@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 import MenuIcon from '@material-ui/icons/Menu';
+import Sidenav from './Sidenav';
 
 function Navbar(props) {
   useEffect(() =>{
@@ -34,11 +35,9 @@ function Navbar(props) {
 
 	return (
 		<AppBar position="sticky">
-			<Container maxWidth="md">
+			<Container maxWidth="lg">
 			  <Toolbar variant="regular">
-			    <IconButton edge="start" color="inherit" aria-label="menu">
-			      <MenuIcon />
-			    </IconButton>
+			    <Sidenav />
 			    <Box my={1}>
 			      <Typography variant="h6" color="inherit">
 			        AddressBook

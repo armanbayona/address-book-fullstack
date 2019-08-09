@@ -5,8 +5,42 @@ import Contact from './Contact';
 import { 
  Box,
 } from '@material-ui/core';
+ import {
+  red,
+  pink,
+  purple,
+  deepPurple,
+  indigo,
+  blue,
+  lightBlue,
+  cyan,
+  teal,
+  green,
+  lightGreen
+} from '@material-ui/core/colors';
+
+const color = { 
+  red: red[300],
+  pink: pink[300],
+  purple: purple[300],
+  deepPurple: deepPurple[300],
+  indigo: indigo[300],
+  blue: blue[300],
+  lightBlue: lightBlue[300],
+  cyan: cyan[300],
+  teal: teal[300],
+  green: green[300],
+  lightGreen: lightGreen[300],
+}
+
+const randomProperty = function (obj) {
+  const keys = Object.keys(obj)
+  console.log('rand')
+  return obj[keys[ keys.length * Math.random() << 0]];
+};
 
 function Contacts(props) {
+  //RUN WHEN PROPS CHANGES
   useEffect(() => {
     getContacts(props.current_book);
   }, [props.contacts, props.current_book, props.sort_by, props.order_by]);
@@ -15,8 +49,7 @@ function Contacts(props) {
     contacts: [],
     current_book: 0,
   });
-  
-  //GET WHEN SWITCHED
+  //GET WHEN SWITCHED GROUPS
   const getContacts = (id) => {
     axios.get(`http://localhost:3001/api/contacts/profile/${id}/${props.sort_by}/${props.order_by}`)
     .then(response => {
@@ -66,10 +99,13 @@ function Contacts(props) {
     })
   }
 
-
+  const search = 'Tony';
 	return (
 		<Box pt={1}>
-			 {state.contacts.map((contact, i) => <Contact key={i} contact={contact}  deleteContact={deleteContact} editContact={editContact}/> )}
+			{state.contacts.map((contact, i) => {
+        return (contact.first_name.match(new RegExp(search, 'gi')) || contact.last_name.match(new RegExp(search, 'gi'))  ? 
+          <Contact color={randomProperty(color)} key={i} contact={contact}  deleteContact={deleteContact} editContact={editContact} /> : null)    
+      })}
     </Box>
 	);
 }

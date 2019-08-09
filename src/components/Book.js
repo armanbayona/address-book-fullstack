@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from './Book-Components/Navbar';
 import Menubar from './Book-Components/Menu';
 import Contacts from './Book-Components/Contacts';
+
 import {  
   Container, 
   Box, 
@@ -86,7 +87,7 @@ function Book(props) {
     <MuiThemeProvider theme = { theme }>
       <Navbar username={user.username}/>
 
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box p={1}>
           <Menubar state={state} setState={setState}/>
           <Contacts sort_by={state.sort_by} order_by={state.order_by} current_book={state.current_book} contacts={state.contacts}/>
